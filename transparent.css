@@ -1,0 +1,51 @@
+/* change last number to adjust darkness */
+.flex-horizontal{ background-color: rgba(25, 25, 25, 0.90);}
+.user-settings-modal-account .flex-horizontal {background:white;}
+
+.fullscreen-bg video {
+  position: fixed;
+  top: 50%; left: 50%;
+  z-index: -100;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+}
+
+.theme-dark .messages-wrapper .messages .divider span{
+    background-color: transparent;
+}
+
+.message-group{border:0px;}
+
+/*Transparency*/
+#voice-connection,
+#friends,
+#friends .btn,
+.friends-header,
+.friends-table,
+.search-bar,
+.title-wrap,
+.guilds-wrapper,
+.channels-wrap,
+.guild-channels,
+.account,
+.chat,
+.links,
+.content,
+.chat-empty,
+.message-group-blocked,
+.private-channels,
+.guild-header header,
+.channel-members,
+.layer,
+.layers,
+#rtc-connection,
+.typing,
+.divider-red span,
+.messages-wrapper,
+.divider:before,
+.channel-text.selected,
+.channel-text:hover
+{background: transparent !important; border: 0px;}
