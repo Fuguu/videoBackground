@@ -6,7 +6,7 @@ Example:
 ![](https://thumbs.gfycat.com/ClumsyGreenHookersealion-size_restricted.gif)
 
 # Install
-Download [`videoBackground.plugin.js`](https://raw.githubusercontent.com/Fuguu/BetterDiscord/master/VideoBackground/videoBackground.plugin.js) (can right click this link and save as) and drop it in the BetterDiscord plugin folder. 
+Download [`videoBackground.plugin.js`](https://raw.githubusercontent.com/Fuguu/videoBackground/master/videoBackground.plugin.js) (can right click this link and save as) and drop it in the BetterDiscord plugin folder. 
 
 This can be found in:
 + `Discord settings > BetterDiscord > Plugins > 'Open Plugin Folder'`
