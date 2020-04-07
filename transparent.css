@@ -1,6 +1,5 @@
 /* change last number to adjust darkness */
-.flex-horizontal{ background-color: rgba(25, 25, 25, 0.90);}
-.user-settings-modal-account .flex-horizontal {background:white;}
+.da-bg{ background-color: rgba(25, 25, 25, 0.90);}
 
 .fullscreen-bg video {
   position: fixed;
@@ -20,32 +19,27 @@
 .message-group{border:0px;}
 
 /*Transparency*/
-#voice-connection,
-#friends,
-#friends .btn,
-.friends-header,
-.friends-table,
-.search-bar,
-.title-wrap,
-.guilds-wrapper,
-.channels-wrap,
-.guild-channels,
-.account,
-.chat,
-.links,
-.content,
-.chat-empty,
-.message-group-blocked,
-.private-channels,
-.guild-header header,
-.channel-members,
-.layer,
-.layers,
-#rtc-connection,
-.typing,
-.divider-red span,
-.messages-wrapper,
-.divider:before,
-.channel-text.selected,
-.channel-text:hover
+.da-container,
+.da-wrapper,
+.da-base,
+.da-layer,
+.da-layers,
+.da-sidebar,
+.da-app,
+.da-chat,
+.da-content,
+.da-embedFull,
+.da-panels,
+.da-nowPlayingColumn,
+.da-privateChannels,
+.da-applicationStore,
+.da-contentRegion,
+.da-standardSidebarView,
+.da-members,
+.da-systemPad,
+.content-region,
+.content-region-scroller,
+.da-form:before
 {background: transparent !important; border: 0px;}
+
+.da-bodyInner{ background: #2f3136 !important;}
