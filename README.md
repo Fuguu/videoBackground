@@ -14,7 +14,7 @@ This can be found in:
 
 Restart discord and it should show up like so:
 
-![](https://i.imgur.com/1wzj3HE.png)
+![](https://i.imgur.com/lyWHjmT.png)
 
 Include the following code to your css (this is included in the sample theme):
 ```css
@@ -33,9 +33,9 @@ Include the following code to your css (this is included in the sample theme):
 # Setting up Video
 Clicking on the `Settings` button will open a window like so:
 
-![](https://i.imgur.com/kWQK9za.png)
+![](https://i.imgur.com/ruybwfM.png)
 
-The link must be a direct link to any `MP4/WebM/OGG` file. This work with websites such as Streamable and Gfycat. The link must also be https:// or the video will not play. Hit save and if the css has been set up, it should appear.
+The link must be a direct link to any `MP4/WebM/OGG` file. This work with websites such as Streamable and Gfycat. The link must also be https:// or the video will not play. It will autosave and update the video when link is added.
 
 # Getting Direct Link
 <h4>Streamable</h4>
