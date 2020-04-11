@@ -1,9 +1,9 @@
-//META{"name":"videoBackground","authorId":"83151710654038016", "website":"https://github.com/Fuguu/videoBackground"}*//
+//META{"name":"videoBackground","authorId":"83151710654038016", "transparencyCSS":"https://github.com/Fuguu/videoBackground/blob/master/transparent.css"}*//
 
 var videoBackground = (_ => {
   return class videoBackground {
     getName() {
-      return "videoBackground";
+      return "VideoBackground";
     }
 
     getVersion() {
@@ -15,7 +15,7 @@ var videoBackground = (_ => {
     }
 
     getDescription() {
-      return "Runs video as background with css";
+      return "Set your Discord background as a video! CSS is required, example can be found at website linked below";
     }
 
     initConstructor() {
@@ -23,7 +23,7 @@ var videoBackground = (_ => {
         settings: {
           videoLink: {
             value: "video link",
-            description: "Video link goes here"
+            description: "Video link goes here - MP4/WebM/OGG"
           }
         }
       };
@@ -165,6 +165,7 @@ var videoBackground = (_ => {
         console.log("Fullscreen-bg class already exists!");
       }
     }
+    
 
     deleteVideo() {
       $(".fullscreen-bg").remove();
