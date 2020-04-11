@@ -57,4 +57,4 @@ For Youtube, I recommend converting the video to Streamable and following the sa
 # Contact
 Feel free to message me about any question you may have and i'll try to help out.
 + Twitter: **@Fuguzors**
-+ Discord: **Fugu#1249**
++ Discord: **Fugu#1064**
