@@ -1,76 +1,186 @@
-//META{"name":"videoBackground"}*//
+//META{"name":"videoBackground","authorId":"83151710654038016", "website":"https://github.com/Fuguu/videoBackground"}*//
 
-var videoBackground = function () {};
+var videoBackground = (_ => {
+  return class videoBackground {
+    getName() {
+      return "videoBackground";
+    }
 
-videoBackground.prototype.load = function() {
-};
+    getVersion() {
+      return "2.0";
+    }
 
-videoBackground.prototype.unload = function() {
-};
+    getAuthor() {
+      return "Fugu";
+    }
 
-videoBackground.prototype.settingsVersion = "1";
+    getDescription() {
+      return "Runs video as background with css";
+    }
 
-videoBackground.prototype.defaultSettings = function() {
-  console.log("calling default settings");
-  return{
-    version: this.settingsVersion,
-      video: "https://thumbs.gfycat.com/AdventurousQuickIggypops-mobile.mp4",
-  }
-}
+    initConstructor() {
+      this.defaults = {
+        settings: {
+          videoLink: {
+            value: "video link",
+            description: "Video link goes here"
+          }
+        }
+      };
+    }
 
-videoBackground.prototype.loadSettings = function() {
-	return this.defaultSettings();
-};
+    getSettingsPanel(collapseStates = {}) {
+      if (
+        !window.BDFDB ||
+        typeof BDFDB != "object" ||
+        !BDFDB.loaded ||
+        !this.started
+      )
+        return;
+      let settings = BDFDB.DataUtils.get(this, "settings");
+      let settingsPanel,
+        settingsItems = [],
+        innerItems = [];
 
-videoBackground.prototype.saveSettings = function(button) {
+      for (let key in settings)
+        settingsItems.push(
+          BDFDB.ReactUtils.createElement(
+            BDFDB.LibraryComponents.SettingsSaveItem,
+            {
+              className: BDFDB.disCN.marginbottom8,
+              type: "TextInput",
+              plugin: this,
+              keys: ["settings", key],
+              label: this.defaults.settings[key].description,
+              value: settings[key],
+              onChange: (e, instance) => {
+                this.deleteVideo();
+                this.injectVideo();
+              }
+            }
+          )
+        );
 
-    var settings = this.loadSettings();
-    settings.video = $("#vbsettings #video").val();
-    BdApi.setData("videoBackground", "videoBackground", JSON.stringify(settings));
-    this.stop();
-    this.start();
-    button.innerHTML = "Saved";
-    setTimeout(function(){button.innerHTML = "Save";},1000);
-	console.log("saved new link!");
-};
+      innerItems = [];
 
+      return (settingsPanel = BDFDB.PluginUtils.createSettingsPanel(
+        this,
+        settingsItems
+      ));
+    }
 
-videoBackground.prototype.start = function() {
+    //legacy
+    load() {}
 
-	$(".da-appMount").after("<div class='fullscreen-bg'><video loop muted autoplay class='fullscreen-bg-video'></video></div>");
-    $(".da-appMount").css('background', 'transparent');
-    
-    var settings = this.loadSettings();
-    
-    var source = document.createElement('source');
-    $(source).attr('src', settings.video);
-    $(".fullscreen-bg-video").append(source);
-    
-};
+    start() {
+      if (!window.BDFDB) window.BDFDB = { myPlugins: {} };
+      if (
+        window.BDFDB &&
+        window.BDFDB.myPlugins &&
+        typeof window.BDFDB.myPlugins == "object"
+      )
+        window.BDFDB.myPlugins[this.getName()] = this;
+      let libraryScript = document.querySelector(
+        "head script#BDFDBLibraryScript"
+      );
+      if (
+        !libraryScript ||
+        performance.now() - libraryScript.getAttribute("date") > 600000
+      ) {
+        if (libraryScript) libraryScript.remove();
+        libraryScript = document.createElement("script");
+        libraryScript.setAttribute("id", "BDFDBLibraryScript");
+        libraryScript.setAttribute("type", "text/javascript");
+        libraryScript.setAttribute(
+          "src",
+          "https://mwittrien.github.io/BetterDiscordAddons/Plugins/BDFDB.min.js"
+        );
+        libraryScript.setAttribute("date", performance.now());
+        libraryScript.addEventListener("load", _ => {
+          this.initialize();
+        });
+        document.head.appendChild(libraryScript);
+      } else if (window.BDFDB && typeof BDFDB === "object" && BDFDB.loaded)
+        this.initialize();
+      this.startTimeout = setTimeout(_ => {
+        try {
+          return this.initialize();
+        } catch (err) {
+          console.error(
+            `%c[${this.getName()}]%c`,
+            "color: #3a71c1; font-weight: 700;",
+            "",
+            "Fatal Error: Could not initiate plugin! " + err
+          );
+        }
+      }, 30000);
+    }
 
-videoBackground.prototype.stop = function() {
-    $(".fullscreen-bg").remove();
-    $(".da-appMount").removeAttr('style');
-};
+    initialize() {
+      if (window.BDFDB && typeof BDFDB === "object" && BDFDB.loaded) {
+        if (this.started) return;
+        BDFDB.PluginUtils.init(this);
+        this.injectVideo();
 
-videoBackground.prototype.update = function() {
-};
+        BDFDB.ModuleUtils.patch(
+          this,
+          BDFDB.LibraryModules.QuoteUtils,
+          "videoBackground",
+          { instead: e => {} }
+        );
+      } else
+        console.error(
+          `%c[${this.getName()}]%c`,
+          "color: #3a71c1; font-weight: 700;",
+          "",
+          "Fatal Error: Could not load BD functions!"
+        );
+    }
 
-videoBackground.prototype.getSettingsPanel = function () {
-};
+    stop() {
+      if (window.BDFDB && typeof BDFDB === "object" && BDFDB.loaded) {
+        this.stopping = true;
+        this.deleteVideo();
 
-videoBackground.prototype.getName = function() {
-    return "Video Background";
-};
+        BDFDB.PluginUtils.clear(this);
+      }
+    }
 
-videoBackground.prototype.getDescription = function() {
-    return "Set a WebM/MP4/Ogg as a background. Manual CSS required";
-};
+    // begin of own functions
 
-videoBackground.prototype.getVersion = function() {
-    return "1.0";
-};
+    injectVideo() {
+      console.log("injecting video stuff");
+      let videolink = BDFDB.DataUtils.get(this, "settings", "videoLink");
+      var findVideoClass = document.getElementsByClassName("fullscreen-bg");
+      if (findVideoClass.length == 0) {
+        $(".da-appMount").after(
+          "<div class='fullscreen-bg'><video loop muted autoplay class='fullscreen-bg-video'></video></div>"
+        );
+        $(".da-appMount").css("background", "transparent");
 
-videoBackground.prototype.getAuthor = function() {
-    return "Fuguzors";
-};
+        var source = document.createElement("source");
+        $(source).attr("src", videolink);
+        $(".fullscreen-bg-video").append(source);
+      } else {
+        console.log("Fullscreen-bg class already exists!");
+      }
+    }
+
+    deleteVideo() {
+      $(".fullscreen-bg").remove();
+      $(".da-appMount").removeAttr("style");
+    }
+
+    onSettingsClosed() {
+      if (this.SettingsUpdated) {
+        delete this.SettingsUpdated;
+        this.forceUpdateAll();
+      }
+    }
+
+    forceUpdateAll() {
+      BDFDB.ModuleUtils.forceAllUpdates(this);
+      BDFDB.MessageUtils.rerenderAll();
+    }
+  };
+})();
