@@ -1,4 +1,4 @@
-/* change last number to adjust darkness */
+ /*change last number to adjust darkness */
 .da-bg{ background-color: rgba(25, 25, 25, 0.90);}
 
 .fullscreen-bg video {
@@ -11,12 +11,6 @@
   height: auto;
   transform: translate(-50%, -50%);
 }
-
-.theme-dark .messages-wrapper .messages .divider span{
-    background-color: transparent;
-}
-
-.message-group{border:0px;}
 
 /*Transparency*/
 .da-container,
@@ -42,4 +36,6 @@
 .da-form:before
 {background: transparent !important; border: 0px;}
 
-.da-bodyInner{ background: #2f3136 !important;}
+.da-bodyInner, /*User Cards*/
+.da-grid /*Embedded Items*/
+{ background: #2f3136 !important;}
