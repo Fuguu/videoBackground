@@ -1,4 +1,4 @@
-//META{"name":"videoBackground","authorId":"83151710654038016", "transparencyCSS":"https://github.com/Fuguu/videoBackground/blob/master/transparent.css"}*//
+//META{"name":"videoBackground","authorId":"83151710654038016", "website":"https://github.com/Fuguu/videoBackground/"}*//
 
 var videoBackground = (_ => {
   return class videoBackground {
