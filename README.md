@@ -63,10 +63,6 @@ In a similar fashion to Streamable, you can right click a gfycat video and copy 
 
 ![](https://i.imgur.com/BPzKJMM.png)
 
-<h4>Youtube</h4>
-
-For Youtube, I recommend converting the video to Streamable and following the same method.
-
 # Contact
 Feel free to message me about any question you may have and i'll try to help out.
 + Twitter: **@Fuguzors**
