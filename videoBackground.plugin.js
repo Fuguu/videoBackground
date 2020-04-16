@@ -7,7 +7,7 @@ var videoBackground = (_ => {
     }
 
     getVersion() {
-      return "2.0";
+      return "3.0";
     }
 
     getAuthor() {
@@ -23,7 +23,7 @@ var videoBackground = (_ => {
         settings: {
           videoLink: {
             value: "video link",
-            description: "Video link goes here - MP4/WebM/OGG"
+            description: "Youtube video/playlist or direct MP4/WebM/OGG link"
           }
         }
       };
@@ -55,7 +55,7 @@ var videoBackground = (_ => {
               value: settings[key],
               onChange: (e, instance) => {
                 this.deleteVideo();
-                this.injectVideo();
+                this.runVideo();
               }
             }
           )
@@ -70,7 +70,7 @@ var videoBackground = (_ => {
     }
 
     //legacy
-    load() {}
+    load() { }
 
     start() {
       if (!window.BDFDB) window.BDFDB = { myPlugins: {} };
@@ -120,21 +120,16 @@ var videoBackground = (_ => {
       if (window.BDFDB && typeof BDFDB === "object" && BDFDB.loaded) {
         if (this.started) return;
         BDFDB.PluginUtils.init(this);
-        this.injectVideo();
-
-        BDFDB.ModuleUtils.patch(
-          this,
-          BDFDB.LibraryModules.QuoteUtils,
-          "videoBackground",
-          { instead: e => {} }
-        );
-      } else
+        this.runVideo();
+        
+      } else {
         console.error(
           `%c[${this.getName()}]%c`,
           "color: #3a71c1; font-weight: 700;",
           "",
-          "Fatal Error: Could not load BD functions!"
+          "Fatal Error: Could not load Youtube Background functions!"
         );
+      }
     }
 
     stop() {
@@ -148,8 +143,52 @@ var videoBackground = (_ => {
 
     // begin of own functions
 
+    runVideo(){
+      let check = BDFDB.DataUtils.get(this, "settings", "videoLink");
+      if(check.search("youtube")>-1){
+        this.injectVideo();
+      } else {
+        this.injectOtherVideo();
+      }
+    }
+
     injectVideo() {
-      console.log("injecting video stuff");
+      console.log("Injecting youtube iframe!");
+      let videolink = BDFDB.DataUtils.get(this, "settings", "videoLink");
+
+      if (videolink.search("playlist?") > -1) {
+        console.log("Youtube Background: loading playlist!");
+        let videoPL = videolink.substring(videolink.search("playlist") + 14, videolink.length);
+        videolink = videolink.replace("playlist?list=", "embed/videoseries?list=");
+        videolink = "https://www.youtube.com/embed/videoseries?list=";
+        videolink += videoPL;
+        videolink += "&controls=1&mute=1&showinfo=0&rel=0&autoplay=1&loop=1";
+
+      }
+      if (videolink.search("watch") > -1) {
+        console.log("Youtube Background: loading single video!");
+        let videoID = videolink.substring(videolink.search("watch") + 8, videolink.search("watch") + 19);
+        videolink = "https://www.youtube.com/embed/";
+        videolink += videoID;
+        videolink += "?controls=1&mute=1&showinfo=0&rel=0&autoplay=1&loop=1&playlist=";
+        videolink += videoID;
+      }
+
+      var findVideoClass = document.getElementsByClassName("fullscreen-bg");
+      if (findVideoClass.length == 0) {
+        $(".da-appMount").after(
+          "<div class='fullscreen-bg'><iframe class='fullscreen-bg-video'></iframe></div>"
+        );
+        $(".da-appMount").css("background", "transparent");
+
+        $(".fullscreen-bg-video").attr("src", videolink);
+      } else {
+        console.log("Fullscreen-bg class already exists!");
+      }
+    }
+
+    injectOtherVideo(){
+      console.log("injecting custom video!");
       let videolink = BDFDB.DataUtils.get(this, "settings", "videoLink");
       var findVideoClass = document.getElementsByClassName("fullscreen-bg");
       if (findVideoClass.length == 0) {
@@ -165,7 +204,6 @@ var videoBackground = (_ => {
         console.log("Fullscreen-bg class already exists!");
       }
     }
-    
 
     deleteVideo() {
       $(".fullscreen-bg").remove();
