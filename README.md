@@ -35,10 +35,18 @@ Clicking on the `Settings` button will open a window like so:
 
 ![](https://i.imgur.com/ruybwfM.png)
 
+
 Links that can be used:
+
+
 Youtube video: `https://www.youtube.com/watch?v=9sgTdjmTiL4`
+
+
 Youtube playlist: `https://www.youtube.com/playlist?list=PLgA8PQBu3V3abH0MbSslHCeVToaa9keLE`
+
+
 Direct link to any `MP4/WebM/OGG` file: `https://giant.gfycat.com/TenderAgileAsiaticlesserfreshwaterclam.webm`
+
 
 Direct links work with websites such as Streamable and Gfycat. The link must also be https:// or the video will not play. It will autosave and update the video when link is added.
 
