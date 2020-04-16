@@ -1,5 +1,5 @@
 # Video Background for BetterDiscord
-This is a guide to using the plugin. When working, it will insert a `<video>` or `<iframe>` element after `<app-mount>` which requires some css to make visible. I have provided a sample css theme that will do so.
+This is a guide to using the plugin. When working, it will insert a `<video>` or `<iframe>` element after `<app-mount>` which requires some css to make visible. I have provided a sample css theme that will do so. Currently there are no controls for the video, might add it sometime in the future.
 
 Example: 
 
@@ -14,7 +14,7 @@ This can be found in:
 
 Restart discord and it should show up like so:
 
-![](https://i.imgur.com/lyWHjmT.png)
+![](https://i.imgur.com/vu7VUfv.png)
 
 Include the following code to your css (this is included in the sample theme):
 ```css
@@ -33,7 +33,7 @@ Include the following code to your css (this is included in the sample theme):
 # Setting up Video
 Clicking on the `Settings` button will open a window like so:
 
-![](https://i.imgur.com/ruybwfM.png)
+![](https://i.imgur.com/e8gqMNK.png)
 
 
 Links that can be used:
