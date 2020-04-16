@@ -1,5 +1,16 @@
  /*change last number to adjust darkness */
-.da-bg{ background-color: rgba(25, 25, 25, 0.90);}
+.da-bg{ background-color: rgba(25, 25, 25, 0.80);}
+
+.fullscreen-bg-video {
+  position: fixed;
+  top: 50%; left: 50%;
+  z-index: -100;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+}
 
 .fullscreen-bg video {
   position: fixed;
