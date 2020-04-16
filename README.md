@@ -18,7 +18,8 @@ Restart discord and it should show up like so:
 
 Include the following code to your css (this is included in the sample theme):
 ```css
-.fullscreen-bg video {
+.fullscreen-bg video,
+.fullscreen-bg-video{
   position: fixed;
   top: 50%; left: 50%;
   z-index: -100;
