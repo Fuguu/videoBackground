@@ -31,6 +31,8 @@ Include the following code to your css (this is included in the sample theme):
 }
 ```
 
+If you use a custom theme already, just include the [`sample css`](https://raw.githubusercontent.com/Fuguu/videoBackground/master/transparent.css) at the end of your custom css or theme. It will make all the backgrounds transparent.
+
 # Setting up Video
 Clicking on the `Settings` button will open a window like so:
 
