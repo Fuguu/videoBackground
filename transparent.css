@@ -31,7 +31,10 @@
 .da-applicationStore,
 .da-contentRegion,
 .da-standardSidebarView,
+.da-contentRegionScroller,
+.da-sidebarRegionScroller,
 .da-members,
+.da-inset,
 .da-systemPad,
 .content-region,
 .content-region-scroller,
@@ -39,5 +42,5 @@
 {background: transparent !important; border: 0px;}
 
 .da-bodyInner, /*User Cards*/
-.da-grid /*Embedded Items*/
-{ background: #2f3136 !important;}
+.da-grid /*Embedded Items - change last number to adjust darkness */
+{ background: rgba(25, 25, 25, 0.5) !important;}
