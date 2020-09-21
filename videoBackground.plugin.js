@@ -1,53 +1,71 @@
 //META{"name":"videoBackground","authorId":"83151710654038016", "website":"https://github.com/Fuguu/videoBackground/"}*//
 
-var videoBackground = (_ => {
-  return class videoBackground {
-    getName() {
-      return "VideoBackground";
-    }
-
-    getVersion() {
-      return "3.0";
-    }
-
-    getAuthor() {
-      return "Fugu";
-    }
-
-    getDescription() {
-      return "Set your Discord background as a video! CSS is required, example can be found at website linked below";
-    }
-
-    initConstructor() {
-      this.defaults = {
-        settings: {
-          videoLink: {
-            value: "video link",
-            description: "Youtube video/playlist or direct MP4/WebM/OGG link"
+module.exports = (_ => {
+    const config = {
+		"info": {
+			"name": "VideoBackground",
+			"author": "Fugu",
+			"version": "3.0",
+			"description": "Set your Discord background as a video! CSS is required, example can be found at website linked below"
+		}
+	};
+    return !window.BDFDB_Global || (!window.BDFDB_Global.loaded && !window.BDFDB_Global.started) ? class {
+		getName () {return config.info.name;}
+		getAuthor () {return config.info.author;}
+		getVersion () {return config.info.version;}
+		getDescription () {return config.info.description;}
+		
+        load() {
+			if (!window.BDFDB_Global || !Array.isArray(window.BDFDB_Global.pluginQueue)) window.BDFDB_Global = Object.assign({}, window.BDFDB_Global, {pluginQueue:[]});
+			if (!window.BDFDB_Global.downloadModal) {
+				window.BDFDB_Global.downloadModal = true;
+				BdApi.showConfirmationModal("Library Missing", `The library plugin needed for ${config.info.name} is missing. Please click "Download Now" to install it.`, {
+					confirmText: "Download Now",
+					cancelText: "Cancel",
+					onCancel: _ => {delete window.BDFDB_Global.downloadModal;},
+					onConfirm: _ => {
+						delete window.BDFDB_Global.downloadModal;
+						require("request").get("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js", (e, r, b) => {
+							if (!e && b && b.indexOf(`//META{"name":"`) > -1) require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => {});
+							else BdApi.alert("Error", "Could not download BDFDB library plugin, try again some time later.");
+						});
+					}
+				});
+			}
+			if (!window.BDFDB_Global.pluginQueue.includes(config.info.name)) window.BDFDB_Global.pluginQueue.push(config.info.name);
+        }
+        start() {}
+        stop() {}
+    } : (([Plugin, BDFDB]) => {
+		var settings = {};
+		
+        return class VideoBackground extends Plugin {
+			onLoad() {
+				this.defaults = {
+                    settings: {
+                    videoLink: {
+                    value: "video link",
+                    description: "Youtube video/playlist or direct MP4/WebM/OGG link"
           }
         }
       };
-    }
+			}
+			
+			onStart() {
+				this.runVideo();
+				this.forceUpdateAll();
+			}
+			
+			onStop() {
+                this.deleteVideo();
+				this.forceUpdateAll();
+			}
 
-    getSettingsPanel(collapseStates = {}) {
-      if (
-        !window.BDFDB ||
-        typeof BDFDB != "object" ||
-        !BDFDB.loaded ||
-        !this.started
-      )
-        return;
-      let settings = BDFDB.DataUtils.get(this, "settings");
-      let settingsPanel,
-        settingsItems = [],
-        innerItems = [];
-
-      for (let key in settings)
-        settingsItems.push(
-          BDFDB.ReactUtils.createElement(
-            BDFDB.LibraryComponents.SettingsSaveItem,
-            {
-              className: BDFDB.disCN.marginbottom8,
+			getSettingsPanel (collapseStates = {}) {
+				let settingsPanel, settingsItems = [];
+				
+				for (let key in settings) if (this.defaults.settings[key].description) settingsItems.push(BDFDB.ReactUtils.createElement(BDFDB.LibraryComponents.SettingsSaveItem, {
+					className: BDFDB.disCN.marginbottom8,
               type: "TextInput",
               plugin: this,
               keys: ["settings", key],
@@ -57,93 +75,26 @@ var videoBackground = (_ => {
                 this.deleteVideo();
                 this.runVideo();
               }
-            }
-          )
-        );
+				}));
+				
+				
+				return settingsPanel = BDFDB.PluginUtils.createSettingsPanel(this, settingsItems);
+			}
 
-      innerItems = [];
-
-      return (settingsPanel = BDFDB.PluginUtils.createSettingsPanel(
-        this,
-        settingsItems
-      ));
-    }
-
-    //legacy
-    load() { }
-
-    start() {
-      if (!window.BDFDB) window.BDFDB = { myPlugins: {} };
-      if (
-        window.BDFDB &&
-        window.BDFDB.myPlugins &&
-        typeof window.BDFDB.myPlugins == "object"
-      )
-        window.BDFDB.myPlugins[this.getName()] = this;
-      let libraryScript = document.querySelector(
-        "head script#BDFDBLibraryScript"
-      );
-      if (
-        !libraryScript ||
-        performance.now() - libraryScript.getAttribute("date") > 600000
-      ) {
-        if (libraryScript) libraryScript.remove();
-        libraryScript = document.createElement("script");
-        libraryScript.setAttribute("id", "BDFDBLibraryScript");
-        libraryScript.setAttribute("type", "text/javascript");
-        libraryScript.setAttribute(
-          "src",
-          "https://mwittrien.github.io/BetterDiscordAddons/Plugins/BDFDB.min.js"
-        );
-        libraryScript.setAttribute("date", performance.now());
-        libraryScript.addEventListener("load", _ => {
-          this.initialize();
-        });
-        document.head.appendChild(libraryScript);
-      } else if (window.BDFDB && typeof BDFDB === "object" && BDFDB.loaded)
-        this.initialize();
-      this.startTimeout = setTimeout(_ => {
-        try {
-          return this.initialize();
-        } catch (err) {
-          console.error(
-            `%c[${this.getName()}]%c`,
-            "color: #3a71c1; font-weight: 700;",
-            "",
-            "Fatal Error: Could not initiate plugin! " + err
-          );
-        }
-      }, 30000);
-    }
-
-    initialize() {
-      if (window.BDFDB && typeof BDFDB === "object" && BDFDB.loaded) {
-        if (this.started) return;
-        BDFDB.PluginUtils.init(this);
-        this.runVideo();
-        
-      } else {
-        console.error(
-          `%c[${this.getName()}]%c`,
-          "color: #3a71c1; font-weight: 700;",
-          "",
-          "Fatal Error: Could not load Youtube Background functions!"
-        );
-      }
-    }
-
-    stop() {
-      if (window.BDFDB && typeof BDFDB === "object" && BDFDB.loaded) {
-        this.stopping = true;
-        this.deleteVideo();
-
-        BDFDB.PluginUtils.clear(this);
-      }
-    }
-
-    // begin of own functions
-
-    runVideo(){
+			onSettingsClosed () {
+				if (this.SettingsUpdated) {
+					delete this.SettingsUpdated;
+					this.forceUpdateAll();
+				}
+			}
+			
+			forceUpdateAll () {
+				settings = BDFDB.DataUtils.get(this, "settings");
+				
+				BDFDB.PatchUtils.forceAllUpdates(this);
+			}
+            
+            runVideo(){
       let check = BDFDB.DataUtils.get(this, "settings", "videoLink");
       if(check.search("youtube")>-1){
         this.injectVideo();
@@ -209,17 +160,9 @@ var videoBackground = (_ => {
       $(".fullscreen-bg").remove();
       $(".da-appMount").removeAttr("style");
     }
-
-    onSettingsClosed() {
-      if (this.SettingsUpdated) {
-        delete this.SettingsUpdated;
-        this.forceUpdateAll();
-      }
-    }
-
-    forceUpdateAll() {
-      BDFDB.ModuleUtils.forceAllUpdates(this);
-      BDFDB.MessageUtils.rerenderAll();
-    }
-  };
+		
+			
+			
+		};
+    })(window.BDFDB_Global.PluginUtils.buildPlugin(config));
 })();
