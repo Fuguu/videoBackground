@@ -1,4 +1,13 @@
- /*change last number to adjust darkness */
+/**
+* @name Transparency for Video Background
+* @version 1.0
+* @description Transparency for Video Background
+* @source https://github.com/Fuguu/videoBackground
+* @authorId 83151710654038016
+* @author Fugu
+**/
+
+/*change last number to adjust darkness */
 .da-bg{ background-color: rgba(25, 25, 25, 0.80);}
 
 .fullscreen-bg video,
