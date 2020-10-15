@@ -39,7 +39,7 @@ Clicking on the `Settings` button will open a window like so:
 ![](https://i.imgur.com/e8gqMNK.png)
 
 
-Links that can be used:
+Links that can be used (use full link and not the shorten one):
 
 
 Youtube video: `https://www.youtube.com/watch?v=9sgTdjmTiL4`
