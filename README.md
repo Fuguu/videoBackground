@@ -1,4 +1,6 @@
 # Video Background for BetterDiscord
+NOTE: I've only tested this on Windows.
+
 This is a guide to using the plugin. When working, it will insert a `<video>` or `<iframe>` element after `<app-mount>` which requires some css to make visible. I have provided a sample css theme that will do so. Currently there are no controls for the video, might add it sometime in the future.
 
 Example: 
