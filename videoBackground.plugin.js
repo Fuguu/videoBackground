@@ -113,7 +113,7 @@ module.exports = (_ => {
         videolink = videolink.replace("playlist?list=", "embed/videoseries?list=");
         videolink = "https://www.youtube.com/embed/videoseries?list=";
         videolink += videoPL;
-        videolink += "&controls=1&mute=1&showinfo=0&rel=0&autoplay=1&loop=1";
+        videolink += "&controls=0&mute=1&showinfo=0&rel=0&autoplay=1&loop=1";
 
       }
       if (videolink.search("watch") > -1) {
@@ -121,7 +121,7 @@ module.exports = (_ => {
         let videoID = videolink.substring(videolink.search("watch") + 8, videolink.search("watch") + 19);
         videolink = "https://www.youtube.com/embed/";
         videolink += videoID;
-        videolink += "?controls=1&mute=1&showinfo=0&rel=0&autoplay=1&loop=1&playlist=";
+        videolink += "?controls=0&mute=1&showinfo=0&rel=0&autoplay=1&loop=1&playlist=";
         videolink += videoID;
       }
 
