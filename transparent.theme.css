@@ -7,49 +7,31 @@
 * @author Fugu
 **/
 
-/*change last number to adjust darkness */
-.da-bg{ background-color: rgba(25, 25, 25, 0.80);}
-
-.fullscreen-bg video,
-.fullscreen-bg-video{
-  position: fixed;
-  top: 50%; left: 50%;
-  z-index: -100;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  transform: translate(-50%, -50%);
-}
-
-/*Transparency*/
-.da-container,
-.da-wrapper,
-.da-base,
-.da-layer,
-.da-layers,
-.da-sidebar,
-.da-app,
-.da-chat,
-.da-content,
-.da-embedFull,
-.da-scroller,
-.da-panels,
-.da-nowPlayingColumn,
-.da-privateChannels,
-.da-applicationStore,
-.da-contentRegion,
-.da-standardSidebarView,
-.da-contentRegionScroller,
-.da-sidebarRegionScroller,
-.da-members,
-.da-inset,
-.da-systemPad,
-.content-region,
-.content-region-scroller,
-.da-form:before
-{background: transparent !important; border: 0px;}
-
-.da-bodyInner, /*User Cards*/
-.da-grid /*Embedded Items - change last number to adjust darkness */
-{ background: rgba(25, 25, 25, 0.5) !important;}
+.theme-dark{
+    /*change last value from 0.0-1.0 to adjust darkness*/
+  --background-tertiary: rgba(25, 25, 25, 0.70); 
+  --background-primary: transparent;
+  --background-secondary: transparent;
+  --background-secondary-alt: transparent;
+  --channeltextarea-background: transparent;
+  }
+  
+  
+  .wrapper-3NnKdC,
+  .scroller-1Bvpku,
+  .app-2rEoOp{
+    background: transparent;
+  }
+  
+  
+  .fullscreen-bg video,
+  .fullscreen-bg-video{
+    position: fixed;
+    top: 50%; left: 50%;
+    z-index: -100;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+  }
