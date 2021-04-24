@@ -155,29 +155,29 @@ module.exports = (_ => {
       }
 
       injectOtherVideo() {
-        // console.log("injecting custom video!");
-        // let videolink = BDFDB.DataUtils.get(this, "settings", "videoLink");
-        // var findVideoClass = document.getElementsByClassName("fullscreen-bg");
-        // var findAppMount = document.getElementById("app-mount");
-        // if (findVideoClass.length == 0) {
-        // var newDiv = document.createElement("div");
-        // newDiv.id = "fullscreen-bg";
-        // newDiv.className = "fullscreen-bg";
-        // var newNewDiv = document.createElement("video");
-        // newNewDiv.id = "fullscreen-bg-video";
-        // newNewDiv.className = "fullscreen-bg-video";
-        // newNewDiv.muted = true;
-        // newNewDiv.loop = true; 
-        // newNewDiv.autoplay = true;
-        // var source = document.createElement("source");
-        // source.src = videolink;
-        // newNewDiv.insertAdjacentElement("beforeend", source);
-        // newDiv.insertAdjacentElement("beforeend", newNewDiv);
-        // findAppMount.insertAdjacentElement("beforeend", newDiv);
+        console.log("injecting custom video!");
+        let videolink = BDFDB.DataUtils.get(this, "settings", "videoLink");
+        var findVideoClass = document.getElementsByClassName("fullscreen-bg");
+        var findAppMount = document.getElementById("app-mount");
+        if (findVideoClass.length == 0) {
+        var newDiv = document.createElement("div");
+        newDiv.id = "fullscreen-bg";
+        newDiv.className = "fullscreen-bg";
+        var newNewDiv = document.createElement("video");
+        newNewDiv.id = "fullscreen-bg-video";
+        newNewDiv.className = "fullscreen-bg-video";
+        newNewDiv.muted = true;
+        newNewDiv.loop = true; 
+        newNewDiv.autoplay = true;
+        var source = document.createElement("source");
+        source.src = videolink;
+        newNewDiv.insertAdjacentElement("beforeend", source);
+        newDiv.insertAdjacentElement("beforeend", newNewDiv);
+        findAppMount.insertAdjacentElement("beforeend", newDiv);
 
-        // } else {
-        //   console.log("Fullscreen-bg class already exists!");
-        // }
+        } else {
+          console.log("Fullscreen-bg class already exists!");
+        }
       }
 
       deleteVideo() {
