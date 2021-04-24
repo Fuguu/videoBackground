@@ -184,7 +184,7 @@ module.exports = (_ => {
         var elem = document.querySelector("#fullscreen-bg");
         elem.parentNode.removeChild(elem);
       }
-
+ 
 
 
     };
