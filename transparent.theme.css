@@ -8,7 +8,7 @@
 **/
 
 .theme-dark{
-    /*change last value from 0.0-1.0 to adjust darkness*/
+    /*change last value from 0.0-1.0 to adjust brightness*/
   --background-tertiary: rgba(25, 25, 25, 0.70); 
   --background-primary: transparent;
   --background-secondary: transparent;
@@ -19,7 +19,8 @@
   
   .wrapper-3NnKdC,
   .scroller-1Bvpku,
-  .app-2rEoOp{
+  .app-2rEoOp,
+  .theme-dark .container-1D34oG{
     background: transparent;
   }
   
