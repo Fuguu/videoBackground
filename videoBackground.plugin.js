@@ -1,5 +1,5 @@
 /**
- * @name VideoBackgroundtest
+ * @name VideoBackground
  * @author Fuguu
  * @authorId 83151710654038016
  * @version 3.0
