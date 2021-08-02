@@ -68,7 +68,3 @@ In a similar fashion to Streamable, you can right click a gfycat video and copy 
 
 ![](https://i.imgur.com/BPzKJMM.png)
 
-# Contact
-Feel free to message me about any question you may have and i'll try to help out.
-+ Twitter: **@Fuguzors**
-+ Discord: **Fugu#1064**
